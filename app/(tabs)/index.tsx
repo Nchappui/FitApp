@@ -1,15 +1,9 @@
 import FitCardList from "@/components/FitCardList";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 
 export default function Index() {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Fitness Tracker</Text>
-        <Text style={styles.subtitle}>
-          Choose an exercise to start your workout
-        </Text>
-      </View>
       <FitCardList />
     </SafeAreaView>
   );
