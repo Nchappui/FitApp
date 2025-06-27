@@ -7,12 +7,15 @@ export interface Exercise {
   description?: string;
 }
 
+export type IntensityLevel = "failure" | "1-2-reps" | "2-3-reps";
+
 export interface WorkoutSet {
   id: string;
   exerciseId: string;
   reps: number;
   weight: number;
   date: Date;
+  intensity: IntensityLevel;
   notes?: string;
 }
 
