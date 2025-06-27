@@ -1,15 +1,37 @@
-import { Text, View } from "react-native";
+import FitCardList from "@/components/FitCardList";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Home page et fit</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Fitness Tracker</Text>
+        <Text style={styles.subtitle}>
+          Choose an exercise to start your workout
+        </Text>
+      </View>
+      <FitCardList />
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+  },
+  header: {
+    padding: 20,
+    paddingTop: 10,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 4,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "#666",
+  },
+});
