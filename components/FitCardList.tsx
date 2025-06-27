@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { FlatList, StyleSheet, View } from "react-native";
 import { EXERCISES } from "../data/exercises";
 import { Exercise } from "../types/fitness";
@@ -5,8 +6,11 @@ import FitCard from "./FitCard";
 
 export default function FitCardList() {
   const handleExercisePress = (exercise: Exercise) => {
-    console.log("Exercise pressed:", exercise.name);
-    // TODO: Navigate to exercise detail screen
+    console.log("Navigating to exercise:", exercise.name);
+    router.push({
+      pathname: "/exercise/[id]",
+      params: { id: exercise.id },
+    });
   };
 
   const renderExercise = ({ item }: { item: Exercise }) => (
