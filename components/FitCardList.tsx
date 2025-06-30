@@ -4,7 +4,6 @@ import {
   Keyboard,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   View,
 } from "react-native";
@@ -21,16 +20,6 @@ export default function FitCardList() {
       params: { id: exercise.id },
     });
   };
-
-  const renderEmpty = () => (
-    <View style={styles.emptyContainer}>
-      <Text style={styles.emptyIcon}>🔍</Text>
-      <Text style={styles.emptyTitle}>No exercises found</Text>
-      <Text style={styles.emptySubtitle}>
-        Try adjusting your search terms or browse all exercises
-      </Text>
-    </View>
-  );
 
   return (
     <View style={styles.container}>

@@ -3,14 +3,14 @@ import { Exercise } from "../types/fitness";
 export const EXERCISES: Exercise[] = [
   {
     id: "bench-press-barre",
-    name: "Développé Couché Barre",
+    name: "Bench Barre",
     category: "pecs",
     muscleGroups: ["pectoraux", "deltoïdes antérieurs", "triceps"],
     description: "Exercice classique de pectoraux avec barre",
   },
   {
     id: "bench-press-halteres",
-    name: "Développé Couché Haltères",
+    name: "Bench Haltères",
     category: "pecs",
     muscleGroups: ["pectoraux", "deltoïdes antérieurs", "triceps"],
     description: "Développé couché avec haltères pour plus d'amplitude",
@@ -76,13 +76,6 @@ export const EXERCISES: Exercise[] = [
     category: "jambes",
     muscleGroups: ["quadriceps", "fessiers"],
     description: "Exercice de jambes à la machine",
-  },
-  {
-    id: "chest-fly",
-    name: "Écarté Pectoraux",
-    category: "pecs",
-    muscleGroups: ["pectoraux"],
-    description: "Exercice d'isolation des pectoraux",
   },
   {
     id: "shoulder-lateral-raise",
@@ -151,22 +144,21 @@ export const EXERCISES: Exercise[] = [
   // Nouveaux exercices PECTORAUX
   {
     id: "incline-bench-press-barre",
-    name: "Développé Incliné Barre",
+    name: "Bench Incliné Barre",
     category: "pecs",
     muscleGroups: ["pectoraux supérieurs", "deltoïdes antérieurs", "triceps"],
-    description:
-      "Développé incliné avec barre pour cibler le haut des pectoraux",
+    description: "Bench incliné avec barre pour cibler le haut des pectoraux",
   },
   {
     id: "incline-bench-press-halteres",
-    name: "Développé Incliné Haltères",
+    name: "Bench Incliné Haltères",
     category: "pecs",
     muscleGroups: ["pectoraux supérieurs", "deltoïdes antérieurs", "triceps"],
-    description: "Développé incliné avec haltères pour plus d'amplitude",
+    description: "Bench incliné avec haltères pour plus d'amplitude",
   },
   {
     id: "incline-dumbbell-fly",
-    name: "Écarté Incliné Haltères",
+    name: "Fly Incliné Haltères",
     category: "pecs",
     muscleGroups: ["pectoraux supérieurs"],
     description: "Isolation du haut des pectoraux en position inclinée",

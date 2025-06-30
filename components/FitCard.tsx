@@ -9,11 +9,17 @@ type Props = {
 export default function FitCard({ exercise, onPress }: Props) {
   return (
     <Pressable style={styles.card} onPress={() => onPress(exercise)}>
-      <View style={styles.iconContainer}></View>
-      <Text style={styles.exerciseName}>{exercise.name}</Text>
-      <Text style={styles.muscleGroups}>
-        {exercise.muscleGroups.join(" • ")}
-      </Text>
+      <View style={styles.content}>
+        <Text style={styles.exerciseName}>{exercise.name}</Text>
+        <Text style={styles.muscleGroups}>
+          {exercise.muscleGroups.join(" • ")}
+        </Text>
+        {exercise.description && (
+          <Text style={styles.description} numberOfLines={2}>
+            {exercise.description}
+          </Text>
+        )}
+      </View>
     </Pressable>
   );
 }
@@ -23,7 +29,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 12,
     padding: 16,
-    margin: 8,
+    marginHorizontal: 16,
+    marginVertical: 6,
+    flexDirection: "row",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -33,27 +41,27 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-    width: 140,
-    height: 120,
+    minHeight: 80,
   },
-  iconContainer: {
-    marginBottom: 8,
-  },
-  icon: {
-    fontSize: 32,
-    textAlign: "center",
+  content: {
+    flex: 1,
+    justifyContent: "center",
   },
   exerciseName: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: "600",
-    textAlign: "center",
     marginBottom: 4,
     color: "#333",
   },
   muscleGroups: {
-    fontSize: 10,
+    fontSize: 12,
     color: "#666",
-    textAlign: "center",
     textTransform: "capitalize",
+    marginBottom: 2,
+  },
+  description: {
+    fontSize: 11,
+    color: "#888",
+    fontStyle: "italic",
   },
 });

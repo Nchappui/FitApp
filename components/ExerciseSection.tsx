@@ -51,7 +51,6 @@ export default function ExerciseSection({
         data={categoryExercises}
         renderItem={renderExercise}
         keyExtractor={(item) => item.id}
-        numColumns={2}
         scrollEnabled={false} // Important pour éviter les conflits de scroll
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}
