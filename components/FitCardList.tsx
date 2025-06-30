@@ -43,25 +43,28 @@ export default function FitCardList() {
     <FitCard exercise={item} onPress={handleExercisePress} />
   );
 
-  const renderHeader = () => (
-    <View style={styles.searchContainer}>
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Search exercises, muscles, or categories..."
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-        placeholderTextColor="#999"
-        autoCorrect={false}
-        returnKeyType="done"
-        onSubmitEditing={Keyboard.dismiss}
-      />
-      {filteredExercises.length !== EXERCISES.length && (
-        <Text style={styles.resultsText}>
-          {filteredExercises.length} result
-          {filteredExercises.length !== 1 ? "s" : ""} found
-        </Text>
-      )}
-    </View>
+  const header = useMemo(
+    () => (
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search exercises, muscles, or categories..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          placeholderTextColor="#999"
+          autoCorrect={false}
+          returnKeyType="done"
+          onSubmitEditing={Keyboard.dismiss}
+        />
+        {filteredExercises.length !== EXERCISES.length && (
+          <Text style={styles.resultsText}>
+            {filteredExercises.length} result
+            {filteredExercises.length !== 1 ? "s" : ""} found
+          </Text>
+        )}
+      </View>
+    ),
+    [searchQuery, filteredExercises.length]
   );
 
   const renderEmpty = () => (
@@ -83,9 +86,9 @@ export default function FitCardList() {
         numColumns={2}
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={renderHeader}
+        ListHeaderComponent={header}
         ListEmptyComponent={renderEmpty}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps="never"
       />
     </View>
   );
