@@ -9,9 +9,7 @@ type Props = {
 export default function FitCard({ exercise, onPress }: Props) {
   return (
     <Pressable style={styles.card} onPress={() => onPress(exercise)}>
-      <View style={styles.iconContainer}>
-        <Text style={styles.icon}>{exercise.icon}</Text>
-      </View>
+      <View style={styles.iconContainer}></View>
       <Text style={styles.exerciseName}>{exercise.name}</Text>
       <Text style={styles.muscleGroups}>
         {exercise.muscleGroups.join(" • ")}

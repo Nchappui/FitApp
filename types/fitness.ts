@@ -1,7 +1,6 @@
 export interface Exercise {
   id: string;
   name: string;
-  icon: string; // emoji ou nom d'icône
   category: string;
   muscleGroups: string[];
   description?: string;
