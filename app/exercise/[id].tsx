@@ -99,12 +99,12 @@ export default function ExerciseDetail() {
       />
 
       <ScrollView style={styles.content}>
-        {/* Header de l'exercice */}
+        {/*  Header de l'exercice 
         <View style={styles.exerciseHeader}>
           <Text style={styles.exerciseIcon}>{exercise.icon}</Text>
           <Text style={styles.exerciseName}>{exercise.name}</Text>
           <Text style={styles.exerciseDescription}>{exercise.description}</Text>
-        </View>
+        </View> */}
 
         {/* Informations de l'exercice */}
         <View style={styles.infoSection}>
@@ -181,7 +181,7 @@ export default function ExerciseDetail() {
                 </View>
               ))}
 
-              {/* Totaux de la session */}
+              {/* Totaux de la session 
               <View style={styles.sessionTotals}>
                 <View style={styles.totalItem}>
                   <Text style={styles.totalValue}>
@@ -207,7 +207,7 @@ export default function ExerciseDetail() {
                   </Text>
                   <Text style={styles.totalLabel}>Total Reps</Text>
                 </View>
-              </View>
+              </View>*/}
             </View>
           ) : (
             <View style={styles.lastWorkoutPlaceholder}>
@@ -219,7 +219,7 @@ export default function ExerciseDetail() {
           )}
         </View>
 
-        {/* Records personnels */}
+        {/* Records personnels 
         {personalRecords && (
           <View style={styles.infoSection}>
             <Text style={styles.sectionTitle}>Personal Records</Text>
@@ -244,7 +244,7 @@ export default function ExerciseDetail() {
               </View>
             </View>
           </View>
-        )}
+        )}*/}
 
         {/* Boutons d'action */}
         <View style={styles.actionButtons}>
