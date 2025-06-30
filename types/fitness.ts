@@ -30,13 +30,28 @@ export interface ExerciseHistory {
 }
 
 export type MuscleGroup =
-  | "chest"
-  | "back"
-  | "shoulders"
-  | "arms"
-  | "legs"
-  | "abs"
-  | "glutes";
+  | "biceps"
+  | "triceps"
+  | "deltoïdes"
+  | "deltoïdes antérieurs"
+  | "deltoïdes latéraux"
+  | "deltoïdes postérieurs"
+  | "trapèzes"
+  | "trapèzes moyens"
+  | "rhomboïdes"
+  | "grands dorsaux"
+  | "érecteurs du rachis"
+  | "pectoraux"
+  | "pectoraux supérieurs"
+  | "pectoraux inférieurs"
+  | "quadriceps"
+  | "ischio-jambiers"
+  | "fessiers"
+  | "mollets"
+  | "grands droits"
+  | "obliques"
+  | "transverse"
+  | "fléchisseurs de hanche";
 
 export type ExerciseCategory =
   | "pecs"
