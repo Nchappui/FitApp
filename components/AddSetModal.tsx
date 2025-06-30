@@ -139,15 +139,17 @@ export default function AddSetModal({
       >
         <View style={styles.header}>
           <Pressable onPress={handleClose}>
-            <Text style={styles.cancelButton}>Cancel</Text>
+            <Text style={styles.headerButton}>Cancel</Text>
           </Pressable>
           <Text style={styles.title}>Add Set</Text>
           <Pressable onPress={handleSave}>
-            <Text style={styles.saveButton}>Save</Text>
+            <Text style={styles.headerButton}>Save</Text>
           </Pressable>
         </View>
 
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableWithoutFeedback
+          onPress={Platform.OS !== "web" ? Keyboard.dismiss : () => {}}
+        >
           <ScrollView
             ref={scrollViewRef}
             style={styles.content}
@@ -269,11 +271,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#333",
   },
-  cancelButton: {
-    fontSize: 16,
-    color: "#666",
-  },
-  saveButton: {
+  headerButton: {
     fontSize: 16,
     color: "#1976d2",
     fontWeight: "600",
