@@ -39,8 +39,9 @@ export type MuscleGroup =
   | "glutes";
 
 export type ExerciseCategory =
-  | "strength"
-  | "cardio"
-  | "flexibility"
-  | "compound"
-  | "isolation";
+  | "pecs"
+  | "dos"
+  | "jambes"
+  | "épaules"
+  | "bras"
+  | "abdos";

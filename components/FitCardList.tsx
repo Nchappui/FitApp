@@ -1,35 +1,18 @@
 import { router } from "expo-router";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
-  FlatList,
   Keyboard,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
-import { EXERCISES } from "../data/exercises";
 import { Exercise } from "../types/fitness";
-import FitCard from "./FitCard";
+import ExerciseSection from "./ExerciseSection";
 
 export default function FitCardList() {
   const [searchQuery, setSearchQuery] = useState("");
-
-  // Filtrer les exercices basé sur la recherche
-  const filteredExercises = useMemo(() => {
-    if (!searchQuery.trim()) {
-      return EXERCISES;
-    }
-
-    return EXERCISES.filter(
-      (exercise) =>
-        exercise.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        exercise.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        exercise.muscleGroups.some((muscle) =>
-          muscle.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-    );
-  }, [searchQuery]);
 
   const handleExercisePress = (exercise: Exercise) => {
     console.log("Navigating to exercise:", exercise.name);
@@ -38,34 +21,6 @@ export default function FitCardList() {
       params: { id: exercise.id },
     });
   };
-
-  const renderExercise = ({ item }: { item: Exercise }) => (
-    <FitCard exercise={item} onPress={handleExercisePress} />
-  );
-
-  const header = useMemo(
-    () => (
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search exercises, muscles, or categories..."
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-          placeholderTextColor="#999"
-          autoCorrect={false}
-          returnKeyType="done"
-          onSubmitEditing={Keyboard.dismiss}
-        />
-        {filteredExercises.length !== EXERCISES.length && (
-          <Text style={styles.resultsText}>
-            {filteredExercises.length} result
-            {filteredExercises.length !== 1 ? "s" : ""} found
-          </Text>
-        )}
-      </View>
-    ),
-    [searchQuery, filteredExercises.length]
-  );
 
   const renderEmpty = () => (
     <View style={styles.emptyContainer}>
@@ -79,22 +34,71 @@ export default function FitCardList() {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={filteredExercises}
-        renderItem={renderExercise}
-        keyExtractor={(item) => item.id}
-        numColumns={2}
-        contentContainerStyle={styles.listContainer}
+      {/* Barre de recherche */}
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search exercises, muscles, or categories..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          placeholderTextColor="#999"
+          autoCorrect={false}
+          returnKeyType="done"
+          onSubmitEditing={Keyboard.dismiss}
+        />
+      </View>
+
+      {/* Sections d'exercices */}
+      <ScrollView
+        style={styles.content}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={header}
-        ListEmptyComponent={renderEmpty}
-        keyboardShouldPersistTaps="never"
-      />
+        keyboardShouldPersistTaps="handled"
+      >
+        <ExerciseSection
+          title="Pectoraux"
+          category="pecs"
+          onExercisePress={handleExercisePress}
+          searchQuery={searchQuery}
+        />
+        <ExerciseSection
+          title="Dos"
+          category="dos"
+          onExercisePress={handleExercisePress}
+          searchQuery={searchQuery}
+        />
+        <ExerciseSection
+          title="Jambes"
+          category="jambes"
+          onExercisePress={handleExercisePress}
+          searchQuery={searchQuery}
+        />
+        <ExerciseSection
+          title="Épaules"
+          category="épaules"
+          onExercisePress={handleExercisePress}
+          searchQuery={searchQuery}
+        />
+        <ExerciseSection
+          title="Bras"
+          category="bras"
+          onExercisePress={handleExercisePress}
+          searchQuery={searchQuery}
+        />
+        <ExerciseSection
+          title="Abdominaux"
+          category="abdos"
+          onExercisePress={handleExercisePress}
+          searchQuery={searchQuery}
+        />
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
