@@ -1,6 +1,13 @@
 import { router } from "expo-router";
 import React, { useMemo, useState } from "react";
-import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  FlatList,
+  Keyboard,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { EXERCISES } from "../data/exercises";
 import { Exercise } from "../types/fitness";
 import FitCard from "./FitCard";
@@ -45,7 +52,8 @@ export default function FitCardList() {
         onChangeText={setSearchQuery}
         placeholderTextColor="#999"
         autoCorrect={false}
-        returnKeyType="search"
+        returnKeyType="done"
+        onSubmitEditing={Keyboard.dismiss}
       />
       {filteredExercises.length !== EXERCISES.length && (
         <Text style={styles.resultsText}>

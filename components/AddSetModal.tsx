@@ -6,6 +6,7 @@ import {
   Modal,
   Platform,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -38,14 +39,19 @@ export default function AddSetModal({
   const weightInputRef = useRef<TextInput>(null);
   const repsInputRef = useRef<TextInput>(null);
   const notesInputRef = useRef<TextInput>(null);
+  const scrollViewRef = useRef<ScrollView>(null);
 
   // Réinitialiser le focus quand le modal s'ouvre
   useEffect(() => {
     if (visible) {
-      // Délai pour laisser le modal s'ouvrir complètement
+      // Délai plus long et réinitialisation forcée
       setTimeout(() => {
-        weightInputRef.current?.focus();
-      }, 300);
+        // Force le re-render du TextInput
+        setWeight((prev) => prev + "");
+        setTimeout(() => {
+          weightInputRef.current?.focus();
+        }, 100);
+      }, 500);
     }
   }, [visible]);
 
@@ -88,9 +94,36 @@ export default function AddSetModal({
     setReps("");
     setIntensity("1-2-reps");
     setNotes("");
-    // Dismiss keyboard
+    // Dismiss keyboard et reset scroll avec animation
     Keyboard.dismiss();
+    scrollViewRef.current?.scrollTo({ y: 0, animated: true });
     onClose();
+  };
+
+  // Gérer le focus du champ de notes
+  const handleNotesFocus = () => {
+    // Scroll vers le bas pour voir le champ de notes
+    setTimeout(() => {
+      scrollViewRef.current?.scrollToEnd({ animated: true });
+    }, 200);
+  };
+
+  // Gérer la perte de focus du champ de notes
+  const handleNotesBlur = () => {
+    // Revenir au début
+    setTimeout(() => {
+      scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+    }, 500);
+  };
+
+  // Gérer l'appui sur Done dans le champ de notes
+  const handleNotesSubmit = () => {
+    Keyboard.dismiss();
+    notesInputRef.current?.blur();
+    // Revenir au début après fermeture du clavier
+    setTimeout(() => {
+      scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+    }, 500);
   };
 
   return (
@@ -115,7 +148,13 @@ export default function AddSetModal({
         </View>
 
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.content}>
+          <ScrollView
+            ref={scrollViewRef}
+            style={styles.content}
+            contentContainerStyle={styles.contentContainer}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
             <Text style={styles.exerciseTitle}>{exerciseName}</Text>
 
             <View style={styles.inputSection}>
@@ -126,7 +165,7 @@ export default function AddSetModal({
                 value={weight}
                 onChangeText={setWeight}
                 placeholder="Enter weight"
-                keyboardType="decimal-pad"
+                keyboardType="numeric"
                 returnKeyType="done"
                 onSubmitEditing={Keyboard.dismiss}
               />
@@ -198,14 +237,13 @@ export default function AddSetModal({
                 value={notes}
                 onChangeText={setNotes}
                 placeholder="Add notes about this set..."
-                multiline
-                numberOfLines={3}
-                textAlignVertical="top"
                 returnKeyType="done"
-                onSubmitEditing={Keyboard.dismiss}
+                onSubmitEditing={handleNotesSubmit}
+                onFocus={handleNotesFocus}
+                onBlur={handleNotesBlur}
               />
             </View>
-          </View>
+          </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </Modal>
@@ -242,7 +280,10 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+  },
+  contentContainer: {
     padding: 20,
+    paddingBottom: 40,
   },
   exerciseTitle: {
     fontSize: 24,
