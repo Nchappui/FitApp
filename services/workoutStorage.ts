@@ -136,4 +136,24 @@ export class WorkoutStorageService {
       return [];
     }
   }
+
+  static async clearAllData(): Promise<void> {
+    try {
+      await AsyncStorage.removeItem(STORAGE_KEY);
+      console.log("All workout data cleared successfully");
+    } catch (error) {
+      console.error("Error clearing workout data:", error);
+      throw error;
+    }
+  }
+
+  static async resetDatabase(): Promise<void> {
+    try {
+      await this.clearAllData();
+      console.log("Database reset complete");
+    } catch (error) {
+      console.error("Error resetting database:", error);
+      throw error;
+    }
+  }
 }

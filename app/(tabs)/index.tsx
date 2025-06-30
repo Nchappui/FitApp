@@ -5,6 +5,11 @@ export default function Index() {
   return (
     <SafeAreaView style={styles.container}>
       <FitCardList />
+      {/* Button to clear the database 
+      <Pressable onPress={() => WorkoutStorageService.clearAllData()}>
+        <Text>Clear DB</Text>
+      </Pressable>
+      */}
     </SafeAreaView>
   );
 }
