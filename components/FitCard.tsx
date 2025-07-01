@@ -1,3 +1,5 @@
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Exercise } from "../types/fitness";
 
@@ -7,6 +9,11 @@ type Props = {
 };
 
 export default function FitCard({ exercise, onPress }: Props) {
+  const [isFavorite, setFavorite] = useState(false);
+  const toggleFavorite = () => {
+    setFavorite(!isFavorite);
+    // Here you could also handle saving the favorite state to a database or local storage
+  };
   return (
     <Pressable style={styles.card} onPress={() => onPress(exercise)}>
       <View style={styles.content}>
@@ -19,6 +26,15 @@ export default function FitCard({ exercise, onPress }: Props) {
             {exercise.description}
           </Text>
         )}
+      </View>
+      <View style={{ margin: 10 }}>
+        <Pressable onPress={toggleFavorite}>
+          {isFavorite ? (
+            <FontAwesome name="star" size={30} color="gold" />
+          ) : (
+            <FontAwesome name="star-o" size={30} color="#888" />
+          )}
+        </Pressable>
       </View>
     </Pressable>
   );
@@ -33,6 +49,7 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -45,7 +62,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
   exerciseName: {
     fontSize: 16,
