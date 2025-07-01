@@ -34,7 +34,7 @@ export default function FitCardList() {
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
-          placeholder=" Search exercises, muscles, or categories..."
+          placeholder="Search exercises, muscles, or categories..."
           value={searchQuery}
           onChangeText={setSearchQuery}
           placeholderTextColor="#999"
@@ -58,36 +58,42 @@ export default function FitCardList() {
           category="pecs"
           onExercisePress={handleExercisePress}
           searchQuery={searchQuery}
+          isFavortiesVisible={isFavoritesVisible}
         />
         <ExerciseSection
           title="Dos"
           category="dos"
           onExercisePress={handleExercisePress}
           searchQuery={searchQuery}
+          isFavortiesVisible={isFavoritesVisible}
         />
         <ExerciseSection
           title="Jambes"
           category="jambes"
           onExercisePress={handleExercisePress}
           searchQuery={searchQuery}
+          isFavortiesVisible={isFavoritesVisible}
         />
         <ExerciseSection
           title="Épaules"
           category="épaules"
           onExercisePress={handleExercisePress}
           searchQuery={searchQuery}
+          isFavortiesVisible={isFavoritesVisible}
         />
         <ExerciseSection
           title="Bras"
           category="bras"
           onExercisePress={handleExercisePress}
           searchQuery={searchQuery}
+          isFavortiesVisible={isFavoritesVisible}
         />
         <ExerciseSection
           title="Abdominaux"
           category="abdos"
           onExercisePress={handleExercisePress}
           searchQuery={searchQuery}
+          isFavortiesVisible={isFavoritesVisible}
         />
       </ScrollView>
     </View>
@@ -120,6 +126,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 12,
     paddingVertical: 16,
+    paddingLeft: 16,
     fontSize: 16,
     borderWidth: 1,
     borderColor: "#e0e0e0",
