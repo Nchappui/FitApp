@@ -1,5 +1,6 @@
+import { FavoritesStorageService } from "@/services/favoritesStorage";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Exercise } from "../types/fitness";
 
@@ -10,8 +11,34 @@ type Props = {
 
 export default function FitCard({ exercise, onPress }: Props) {
   const [isFavorite, setFavorite] = useState(false);
-  const toggleFavorite = () => {
-    setFavorite(!isFavorite);
+
+  // Charger l'état initial du favori
+  useEffect(() => {
+    const loadFavoriteStatus = async () => {
+      try {
+        const favoriteStatus = await FavoritesStorageService.isFavorite(
+          exercise.id
+        );
+        setFavorite(favoriteStatus);
+      } catch (error) {
+        console.error("Error loading favorite status:", error);
+      }
+    };
+
+    loadFavoriteStatus();
+  }, [exercise.id]); // Re-exécuter si l'exercice change
+  const toggleFavorite = async () => {
+    try {
+      if (isFavorite) {
+        await FavoritesStorageService.removeFavorite(exercise.id);
+      } else {
+        await FavoritesStorageService.addFavorite(exercise.id);
+      }
+      setFavorite(!isFavorite);
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+      throw error;
+    }
     // Here you could also handle saving the favorite state to a database or local storage
   };
   return (
