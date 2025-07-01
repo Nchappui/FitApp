@@ -1,3 +1,4 @@
+import { FavoritesStorageService } from "@/services/favoritesStorage";
 import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { getExercisesByCategory } from "../data/exercises";
@@ -9,6 +10,7 @@ type Props = {
   category: ExerciseCategory;
   onExercisePress: (exercise: Exercise) => void;
   searchQuery?: string;
+  isFavortiesVisible?: boolean;
 };
 
 export default function ExerciseSection({
@@ -16,10 +18,35 @@ export default function ExerciseSection({
   category,
   onExercisePress,
   searchQuery = "",
+  isFavortiesVisible = false,
 }: Props) {
+  const [favoriteIds, setFavoriteIds] = React.useState<string[]>([]);
+
+  // Charger les favoris quand le mode change
+  React.useEffect(() => {
+    if (isFavortiesVisible) {
+      const loadFavorites = async () => {
+        try {
+          const favorites = await FavoritesStorageService.getFavorites(); // Attendre la Promise
+          setFavoriteIds(favorites); // Maintenant c'est un string[]
+        } catch (error) {
+          console.error("Error loading favorites:", error);
+          setFavoriteIds([]);
+        }
+      };
+      loadFavorites();
+    }
+  }, [isFavortiesVisible]);
+
   // Filtrer les exercices de cette catégorie
-  const categoryExercises = React.useMemo(() => {
+  const displayExercices = React.useMemo(() => {
     let exercises = getExercisesByCategory(category);
+
+    if (isFavortiesVisible) {
+      exercises = exercises.filter(
+        (exercise) => favoriteIds.includes(exercise.id) // includes() au lieu de 'in'
+      );
+    }
 
     // Appliquer le filtre de recherche si présent
     if (searchQuery.trim()) {
@@ -33,10 +60,10 @@ export default function ExerciseSection({
     }
 
     return exercises;
-  }, [category, searchQuery]);
+  }, [category, searchQuery, isFavortiesVisible, favoriteIds]); // Ajouter favoriteIds aux dépendances
 
   // Ne rien afficher si aucun exercice dans cette catégorie
-  if (categoryExercises.length === 0) {
+  if (displayExercices.length === 0) {
     return null;
   }
 
@@ -48,7 +75,7 @@ export default function ExerciseSection({
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>{title}</Text>
       <FlatList
-        data={categoryExercises}
+        data={displayExercices}
         renderItem={renderExercise}
         keyExtractor={(item) => item.id}
         scrollEnabled={false} // Important pour éviter les conflits de scroll
