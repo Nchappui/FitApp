@@ -117,7 +117,12 @@ export default function ExerciseDetail() {
             ))}
           </View>
         </View>
-
+        {exercise.description && (
+          <View style={styles.infoSection}>
+            <Text style={styles.sectionTitle}>Description</Text>
+            <Text style={styles.categoryText}>{exercise.description}</Text>
+          </View>
+        )}
         <View style={styles.infoSection}>
           <Text style={styles.sectionTitle}>Category</Text>
           <Text style={styles.categoryText}>{exercise.category}</Text>

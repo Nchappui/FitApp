@@ -45,6 +45,7 @@ export default function FitCard({ exercise, onPress }: Props) {
     <Pressable style={styles.card} onPress={() => onPress(exercise)}>
       <View style={styles.content}>
         <Text style={styles.exerciseName}>{exercise.name}</Text>
+        {/*
         <Text style={styles.muscleGroups}>
           {exercise.muscleGroups.join(" • ")}
         </Text>
@@ -53,6 +54,7 @@ export default function FitCard({ exercise, onPress }: Props) {
             {exercise.description}
           </Text>
         )}
+          */}
       </View>
       <View style={{ margin: 10 }}>
         <Pressable onPress={toggleFavorite}>
