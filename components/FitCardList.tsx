@@ -2,8 +2,10 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   Keyboard,
+  Pressable,
   ScrollView,
   StyleSheet,
+  Text,
   TextInput,
   View,
 } from "react-native";
@@ -12,6 +14,11 @@ import ExerciseSection from "./ExerciseSection";
 
 export default function FitCardList() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [isFavoritesVisible, setFavoritesVisible] = useState(false);
+
+  const toggleFavorites = () => {
+    setFavoritesVisible(!isFavoritesVisible);
+  };
 
   const handleExercisePress = (exercise: Exercise) => {
     console.log("Navigating to exercise:", exercise.name);
@@ -27,7 +34,7 @@ export default function FitCardList() {
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
-          placeholder="Search exercises, muscles, or categories..."
+          placeholder=" Search exercises, muscles, or categories..."
           value={searchQuery}
           onChangeText={setSearchQuery}
           placeholderTextColor="#999"
@@ -35,6 +42,9 @@ export default function FitCardList() {
           returnKeyType="done"
           onSubmitEditing={Keyboard.dismiss}
         />
+        <Pressable style={styles.Button} onPress={toggleFavorites}>
+          <Text style={styles.ButtonText}>Favoris</Text>
+        </Pressable>
       </View>
 
       {/* Sections d'exercices */}
@@ -101,13 +111,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 16,
     backgroundColor: "#f5f5f5",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 10,
     width: "100%",
   },
   searchInput: {
     backgroundColor: "#fff",
     borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 16,
     fontSize: 16,
     borderWidth: 1,
     borderColor: "#e0e0e0",
@@ -116,7 +128,21 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 2,
-    marginBottom: 8,
+    flex: 1,
+  },
+  Button: {
+    backgroundColor: "#fff",
+    paddingVertical: 16,
+    borderRadius: 10,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#1976d2",
+  },
+  ButtonText: {
+    color: "#1976d2",
+    fontSize: 16,
+    fontWeight: "600",
+    marginHorizontal: 5, // 5px de chaque côté
   },
   resultsText: {
     fontSize: 14,
