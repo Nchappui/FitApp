@@ -43,7 +43,13 @@ export default function FitCardList() {
           onSubmitEditing={Keyboard.dismiss}
         />
         <Pressable style={styles.Button} onPress={toggleFavorites}>
-          <Text style={styles.ButtonText}>Favoris</Text>
+          <Text
+            style={
+              isFavoritesVisible ? styles.ButtonTextSelected : styles.ButtonText
+            }
+          >
+            Favoris
+          </Text>
         </Pressable>
       </View>
 
@@ -106,7 +112,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#f0f0f0",
   },
   listContainer: {
     padding: 8,
@@ -116,11 +122,13 @@ const styles = StyleSheet.create({
   searchContainer: {
     paddingHorizontal: 16,
     paddingVertical: 16,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#f0f0f0",
     flexDirection: "row",
     justifyContent: "space-between",
     gap: 10,
     width: "100%",
+    borderBottomWidth: 1, // ✅ Ajouter cette ligne
+    borderBottomColor: "#e0e0e0", // ✅ Couleur grise légère
   },
   searchInput: {
     backgroundColor: "#fff",
@@ -143,10 +151,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#1976d2",
+    borderColor: "#e0e0e0",
   },
   ButtonText: {
-    color: "#1976d2",
+    color: "#bbb",
+    fontSize: 16,
+    fontWeight: "600",
+    marginHorizontal: 5, // 5px de chaque côté
+  },
+  ButtonTextSelected: {
+    color: "#000",
     fontSize: 16,
     fontWeight: "600",
     marginHorizontal: 5, // 5px de chaque côté
