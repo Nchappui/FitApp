@@ -106,7 +106,10 @@ export class WorkoutStorageService {
     }
   }
 
-  static async getLastWorkoutSets(exerciseId: string): Promise<WorkoutSet[]> {
+  static async getLastWorkoutSets(
+    exerciseId: string,
+    current: boolean = false
+  ): Promise<WorkoutSet[]> {
     try {
       const sets = await this.getSetsByExercise(exerciseId);
 
@@ -117,16 +120,19 @@ export class WorkoutStorageService {
       // Prendre la date de la série la plus récente hormis aujourd'hui
       const today = new Date();
       const todayString = today.toDateString(); // Format: "Mon Jul 03 2025"
-
-      // Trouver la première série qui n'est pas d'aujourd'hui
       let lastWorkoutDate = null;
-      for (let i = 0; i < sets.length; i++) {
-        const setDate = new Date(sets[i].date);
-        const setDateString = setDate.toDateString();
+      if (current) {
+        lastWorkoutDate = today;
+      } else {
+        // Trouver la première série qui n'est pas d'aujourd'hui
+        for (let i = 0; i < sets.length; i++) {
+          const setDate = new Date(sets[i].date);
+          const setDateString = setDate.toDateString();
 
-        if (setDateString !== todayString) {
-          lastWorkoutDate = setDate;
-          break;
+          if (setDateString !== todayString) {
+            lastWorkoutDate = setDate;
+            break;
+          }
         }
       }
 

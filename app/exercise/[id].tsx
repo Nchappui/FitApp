@@ -18,6 +18,9 @@ export default function ExerciseDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [lastWorkoutSets, setLastWorkoutSets] = useState<WorkoutSet[]>([]);
+  const [currentWorkoutSets, setCurrentWorkoutSets] = useState<WorkoutSet[]>(
+    []
+  );
   const [personalRecords, setPersonalRecords] = useState<{
     maxWeight: number;
     maxReps: number;
@@ -37,6 +40,10 @@ export default function ExerciseDetail() {
     if (!exercise) return;
 
     try {
+      const currentSets = await WorkoutStorageService.getLastWorkoutSets(
+        exercise.id,
+        true
+      );
       const lastSets = await WorkoutStorageService.getLastWorkoutSets(
         exercise.id
       );
@@ -44,6 +51,7 @@ export default function ExerciseDetail() {
         exercise.id
       );
 
+      setCurrentWorkoutSets(currentSets);
       setLastWorkoutSets(lastSets);
       setPersonalRecords(records);
     } catch (error) {
@@ -213,6 +221,66 @@ export default function ExerciseDetail() {
                   <Text style={styles.totalLabel}>Total Reps</Text>
                 </View>
               </View>*/}
+            </View>
+          ) : (
+            <View style={styles.lastWorkoutPlaceholder}>
+              <Text style={styles.placeholderText}>No previous workouts</Text>
+              <Text style={styles.placeholderSubtext}>
+                Start your first set!
+              </Text>
+            </View>
+          )}
+        </View>
+        {/* Séance actuelle */}
+        <View style={styles.lastWorkoutSection}>
+          <Text style={styles.sectionTitle}>Current Workout</Text>
+          {currentWorkoutSets.length > 0 ? (
+            <View style={styles.lastWorkoutData}>
+              <Text style={styles.setsTitle}>
+                {currentWorkoutSets.length} Set
+                {currentWorkoutSets.length > 1 ? "s" : ""}
+              </Text>
+
+              {currentWorkoutSets.map((set, index) => (
+                <View key={set.id} style={styles.setRow}>
+                  <View style={styles.setNumber}>
+                    <Text style={styles.setNumberText}>#{index + 1}</Text>
+                  </View>
+
+                  <View style={styles.setData}>
+                    <View style={styles.setDataItem}>
+                      <Text style={styles.setDataValue}>{set.weight} kg</Text>
+                      <Text style={styles.setDataLabel}>Weight</Text>
+                    </View>
+
+                    <View style={styles.setDataSeparator} />
+
+                    <View style={styles.setDataItem}>
+                      <Text style={styles.setDataValue}>{set.reps}</Text>
+                      <Text style={styles.setDataLabel}>Reps</Text>
+                    </View>
+
+                    <View style={styles.setDataSeparator} />
+
+                    <View style={styles.setDataItem}>
+                      <Text style={styles.setDataValue}>
+                        {set.intensity === "failure"
+                          ? "🔥"
+                          : set.intensity === "1-2-reps"
+                          ? "💪"
+                          : "⚡"}
+                      </Text>
+                      <Text style={styles.setDataLabel}>
+                        {set.intensity === "failure"
+                          ? "Échec"
+                          : set.intensity === "1-2-reps"
+                          ? "1-2 rep"
+                          : "2-3 rep"}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              ))}
             </View>
           ) : (
             <View style={styles.lastWorkoutPlaceholder}>
