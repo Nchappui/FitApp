@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Exercise } from "../types/fitness";
 import ExerciseSection from "./ExerciseSection";
+import SettingsModal from "./SettingsModal";
 
 export default function FitCardList() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -109,6 +110,10 @@ export default function FitCardList() {
           isFavortiesVisible={isFavoritesVisible}
         />
       </ScrollView>
+      <SettingsModal
+        visible={isSettingsVisible}
+        onClose={() => setSettingsVisible(false)}
+      ></SettingsModal>
     </View>
   );
 }
