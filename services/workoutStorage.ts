@@ -114,16 +114,34 @@ export class WorkoutStorageService {
         return [];
       }
 
-      // Prendre la date de la série la plus récente
-      const lastDate = new Date(sets[0].date);
+      // Prendre la date de la série la plus récente hormis aujourd'hui
+      const today = new Date();
+      const todayString = today.toDateString(); // Format: "Mon Jul 03 2025"
+
+      // Trouver la première série qui n'est pas d'aujourd'hui
+      let lastWorkoutDate = null;
+      for (let i = 0; i < sets.length; i++) {
+        const setDate = new Date(sets[i].date);
+        const setDateString = setDate.toDateString();
+
+        if (setDateString !== todayString) {
+          lastWorkoutDate = setDate;
+          break;
+        }
+      }
+
+      // Si aucune série trouvée en dehors d'aujourd'hui, retourner un tableau vide
+      if (!lastWorkoutDate) {
+        return [];
+      }
 
       // Filtrer toutes les séries de cette même date
       const lastWorkoutSets = sets.filter((set) => {
         const setDate = new Date(set.date);
         return (
-          setDate.getFullYear() === lastDate.getFullYear() &&
-          setDate.getMonth() === lastDate.getMonth() &&
-          setDate.getDate() === lastDate.getDate()
+          setDate.getFullYear() === lastWorkoutDate.getFullYear() &&
+          setDate.getMonth() === lastWorkoutDate.getMonth() &&
+          setDate.getDate() === lastWorkoutDate.getDate()
         );
       });
 
