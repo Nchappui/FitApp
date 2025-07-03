@@ -1,3 +1,4 @@
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -15,6 +16,7 @@ import ExerciseSection from "./ExerciseSection";
 export default function FitCardList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isFavoritesVisible, setFavoritesVisible] = useState(false);
+  const [isSettingsVisible, setSettingsVisible] = useState(false);
 
   const toggleFavorites = () => {
     setFavoritesVisible(!isFavoritesVisible);
@@ -32,6 +34,11 @@ export default function FitCardList() {
     <View style={styles.container}>
       {/* Barre de recherche */}
       <View style={styles.searchContainer}>
+        <View style={styles.settingsButton}>
+          <Pressable onPress={() => setSettingsVisible(!isSettingsVisible)}>
+            <FontAwesome name="gear" size={30} color="black" />
+          </Pressable>
+        </View>
         <TextInput
           style={styles.searchInput}
           placeholder="Search exercises, muscles, or categories..."
@@ -129,6 +136,11 @@ const styles = StyleSheet.create({
     width: "100%",
     borderBottomWidth: 1, // ✅ Ajouter cette ligne
     borderBottomColor: "#e0e0e0", // ✅ Couleur grise légère
+  },
+  settingsButton: {
+    paddingVertical: 16,
+    fontWeight: 600,
+    color: "#000",
   },
   searchInput: {
     backgroundColor: "#fff",
