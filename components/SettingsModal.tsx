@@ -4,32 +4,38 @@ type Props = { visible: boolean; onClose: () => void };
 
 export default function SettingsModal({ visible, onClose }: Props) {
   return (
-    <Modal
-      visible={visible}
-      animationType="slide"
-      presentationStyle="formSheet"
-      onRequestClose={onClose}
-    >
-      <View style={styles.modalContainer}>
-        <Text style={styles.modalTitle}>Settings</Text>
-        <Text style={styles.modalDescription}>
-          Customize your app settings here.
-        </Text>
-        {/* Add more settings options here */}
-        <Pressable style={styles.closeButton} onPress={onClose}>
-          <Text style={styles.closeButtonText}>Close</Text>
-        </Pressable>
+    <Modal visible={visible} onRequestClose={onClose} transparent={true}>
+      <View style={styles.settingsContainer}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalTitle}>Settings</Text>
+          <Text style={styles.modalDescription}>
+            Customize your app settings here.
+          </Text>
+          {/* Add more settings options here */}
+          <Pressable style={styles.closeButton} onPress={onClose}>
+            <Text style={styles.closeButtonText}>Close</Text>
+          </Pressable>
+        </View>
+        <Pressable
+          style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.4)" }}
+          onPress={onClose}
+        ></Pressable>
       </View>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  modalContainer: {
+  settingsContainer: {
+    flexDirection: "row",
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContainer: {
+    flex: 0.3,
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    backgroundColor: "#f0f0f0",
     padding: 20,
   },
   modalTitle: {
@@ -41,7 +47,7 @@ const styles = StyleSheet.create({
   modalDescription: {
     fontSize: 16,
     marginBottom: 20,
-    textAlign: "center",
+    textAlign: "left",
     color: "#666",
   },
   closeButton: {
