@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   modalContainer: {
-    flex: 0.3,
+    flex: 2,
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
