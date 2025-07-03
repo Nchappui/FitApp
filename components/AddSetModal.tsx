@@ -245,6 +245,11 @@ export default function AddSetModal({
                 onBlur={handleNotesBlur}
               />
             </View>
+            <View style={styles.actionButtons}>
+              <Pressable style={styles.primaryButton} onPress={handleSave}>
+                <Text style={styles.primaryButtonText}>Save</Text>
+              </Pressable>
+            </View>
           </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
@@ -367,6 +372,26 @@ const styles = StyleSheet.create({
   },
   intensityTextSelected: {
     color: "#1976d2",
+    fontWeight: "600",
+  },
+  actionButtons: {
+    gap: 12,
+    marginBottom: 20,
+  },
+  primaryButton: {
+    backgroundColor: "#1976d2",
+    paddingVertical: 16,
+    borderRadius: 12,
+    alignItems: "center",
+    shadowColor: "#1976d2",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  primaryButtonText: {
+    color: "#fff",
+    fontSize: 18,
     fontWeight: "600",
   },
 });
